@@ -50,4 +50,29 @@ describe ("caesar() happy testing: ", () => {
         const expected = "thinkful"
         expect(actual).to.equal(expected)
     })
+
+
+})
+
+describe ("caesar() special handles: ", () => {
+    it("should be able to wrap around the character list when going off of the alphabet when going upwards", () => {
+        const actual = caesar("abcdefghijklmnopqrstuvwxyz", 5)
+        const expected = "fghijklmnopqrstuvwxyzabcde"
+        expect(actual).to.equal(expected)
+    })
+    it("should be able to wrap around the character list when going off of the alphabet when going upwards", () => {
+        const actual = caesar("abcdefghijklmnopqrstuvwxyz", -5)
+        const expected = "vwxyzabcdefghijklmnopqrstu"
+        expect(actual).to.equal(expected)
+    })
+    it("should ignore non-alpha characters", () => {
+        const actual = caesar("thinkful!2 5think890", 3)
+        const expected =  "wklqnixo!2 5wklqn890"
+        expect(actual).to.equal(expected)
+    })
+    it("should ignore capitalization", () => {
+        const actual = caesar("Quick! Think of something!", 16)
+        const expected = "gkysa! jxyda ev iecujxydw!"
+        expect(actual).to.equal(expected)
+    })
 })

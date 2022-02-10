@@ -7,22 +7,24 @@ const caesarModule = (function () {
   // you can add any code you want within this function scope
   const base = 'a'.charCodeAt()
   const letter_count = 26
-  
+
   function caesarLetter(char, shift)
   {
+    
     let charCode = char.charCodeAt() - base
     if (charCode > 25 || charCode < -25)
       return char
     //console.log(charCode)
     charCode = (charCode + shift) % letter_count
     if (charCode < 0)
-      charCode = letter_count - charCode
+      charCode = (letter_count + charCode) % letter_count
     //console.log(String.fromCharCode(charCode + base))
     return String.fromCharCode(charCode + base)
   }
 
   function caesar(input, shift, encode = true) {
     // your solution code here
+    input = input.toLowerCase()
     if (!shift || shift == 0 || shift <= -letter_count || shift >= letter_count)
       return false
 
