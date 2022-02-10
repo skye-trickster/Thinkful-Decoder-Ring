@@ -2,7 +2,8 @@
 const { expect } = require("chai")
 const { caesar } = require("../src/caesar.js")
 
-describe ("Caesar cypher happy testing: ", () => {
+
+describe ("caesar() happy testing: ", () => {
     it("should be able to encode letters forwards", () =>{
         const actual = caesar("thinkful", 3)
         const expected = "wklqnixo"
@@ -15,8 +16,14 @@ describe ("Caesar cypher happy testing: ", () => {
         expect(actual).to.eql(expected)
     })
 
-    it("should be able decode forward", () => {
+    it("should be able decode letters forward", () => {
         const actual = caesar("wklqnixo", 3, false)
+        const expected = "thinkful"
+        expect(actual).to.equal(expected)
+    })
+
+    it("should be able to decode letters backwards", () => {
+        const actual = caesar("qefkhcri", -3, false)
         const expected = "thinkful"
         expect(actual).to.equal(expected)
     })

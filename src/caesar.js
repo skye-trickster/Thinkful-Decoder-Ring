@@ -37,6 +37,4 @@ const caesarModule = (function () {
   };
 })();
 
-console.log(caesarModule.caesar("thinkful", -5))
-
 module.exports = { caesar: caesarModule.caesar };
