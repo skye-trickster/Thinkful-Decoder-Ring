@@ -18,6 +18,13 @@ const polybiusModule = (function () {
     [ 'v', 'w', 'x', 'y', 'z' ]
   ]
 
+  const toLetter = (num) => {
+    const row = Math.floor(num / 10) - 1 , col = num % 10 - 1
+    if (row > 4 || col > 4)
+      throw
+    return squareTable[row][col]
+  }
+
   const letterToNumber = (char) => {
     return char.charCodeAt() - base
   }
