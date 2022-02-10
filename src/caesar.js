@@ -23,6 +23,9 @@ const caesarModule = (function () {
 
   function caesar(input, shift, encode = true) {
     // your solution code here
+    if (!shift || shift == 0 || shift <= -letter_count || shift >= letter_count)
+      return false
+
     if (!encode) shift = -shift
     let str = ""
     for (i in input)
