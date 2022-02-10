@@ -4,36 +4,46 @@
 // of the anonymous function on line 6
 
 const caesarModule = (function () {
-  // you can add any code you want within this function scope
+
   const base = 'a'.charCodeAt()
   const letter_count = 26
 
   function caesarLetter(char, shift)
   {
     
-    let charCode = char.charCodeAt() - base
-    if (charCode > 25 || charCode < -25)
-      return char
-    //console.log(charCode)
+    let charCode = char.charCodeAt() - base //find position in the alphabet
+
+    if (charCode >= letter_count || charCode <= -letter_count)
+      return char //for special characters and numbers
+
     charCode = (charCode + shift) % letter_count
+
     if (charCode < 0)
-      charCode = (letter_count + charCode) % letter_count
-    //console.log(String.fromCharCode(charCode + base))
+      charCode = (letter_count + charCode) % letter_count //shift up for backwards looping
+
     return String.fromCharCode(charCode + base)
   }
 
   function caesar(input, shift, encode = true) {
     // your solution code here
-    input = input.toLowerCase()
+    
+    //for invalid shifts
     if (!shift || shift == 0 || shift <= -letter_count || shift >= letter_count)
       return false
 
-    if (!encode) shift = -shift
+    //lower case the entire input
+    input = input.toLowerCase()
+
+    
+    if (!encode) shift = -shift //shift the other way for decoding
+
     let str = ""
+
     for (i in input)
     {
-      str = `${str}${caesarLetter(input[i], shift)}`
+      str = `${str}${caesarLetter(input[i], shift)}` 
     }
+    
     return str
   }
 
