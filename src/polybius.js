@@ -6,6 +6,23 @@
 const polybiusModule = (function () {
   // you can add any code you want within this function scope
 
+  const base = 'a'.charCodeAt()
+  const letter_count = 26
+
+  const squareTable = 
+  [
+    [ 'a', 'b', 'c', 'd', 'e' ]
+    [ 'f', 'g', 'h', 'i', 'k' ]
+    [ 'l', 'm', 'n', 'o', 'p' ]
+    [ 'q', 'r', 's', 't', 'u' ]
+    [ 'v', 'w', 'x', 'y', 'z' ]
+  ]
+
+  const letterToNumber = (char) => {
+    return char.charCodeAt() - base
+  }
+
+
   function polybius(input, encode = true) {
     // your solution code here
   }
