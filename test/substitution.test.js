@@ -26,5 +26,23 @@ describe ("substitution() function handling", () => {
         })
     
     })
+
+    describe ("substitution() encoding:", () => {
+        it("should be able to correctly encode a message", () => {
+            const actual = substitution("message", "plmoknijbuhvygctfxrdzeswaq") //=> 
+            const expected = "ykrrpik"
+            expect(actual).to.equal(expected)
+        })
+        it("should be able to maintain spaces", () => {
+            const actual = substitution("you are an excellent spy", "xoyqmcgrukswaflnthdjpzibev");
+            const expected = 'elp xhm xf mbymwwmfj dne'
+            expect(actual).to.equal(expected)
+        })
+        it("should be able to ignore capitalization", () => {
+            const actual = substitution("You are an excellent spy", "xoyqmcgrukswaflnthdjpzibev");
+            const expected = 'elp xhm xf mbymwwmfj dne'
+            expect(actual).to.equal(expected) 
+        })
+    })
 })
 

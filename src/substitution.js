@@ -6,7 +6,7 @@
 const substitutionModule = (function () {
   // you can add any code you want within this function scope
 
-  const base = 'a'
+  const base = 'a'.charCodeAt()
   const letter_count = 26
 
   function checkValidAlphabet(alphabet)
@@ -25,11 +25,25 @@ const substitutionModule = (function () {
     return true
   }
 
+  function encodeCharacer(char, alphabet)
+  {
+    if (char === " ") return char
+    const index = char.charCodeAt() - base
+    return alphabet[index]
+  }
+
   function substitution(input, alphabet, encode = true) {
     // your solution code here
     if (!checkValidAlphabet(alphabet))
       return false
-    return input
+    str = ""
+    if (encode)
+    {
+      input = input.toLowerCase()
+      for(let index in input)
+        str = `${str}${encodeCharacer(input[index], alphabet)}`
+    }
+    return str
   }
 
   return {
