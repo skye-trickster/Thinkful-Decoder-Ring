@@ -20,12 +20,6 @@ const polybiusModule = (function () {
     [ 'v', 'w', 'x', 'y', 'z' ]
   ]
 
-  function isLetter (char)
-  {
-    const letterIndex = char.charCodeAt() - base
-    return letterIndex >= 0 && letterIndex < letter_count
-  }
-
   function toNumber (char)
   {
     const findColumn = function(row)
@@ -42,8 +36,6 @@ const polybiusModule = (function () {
       }
       return undefined
     }
-
-    if (!isLetter(char)) return char
 
     if (char == pivot) char = pivot_to //change j to i
 
@@ -73,37 +65,31 @@ const polybiusModule = (function () {
     // your solution code here
 
     str = ""
+    input = input.toLowerCase()
+    let col = undefined
 
-    if (encode)
+    if (!(encode || isValidCipher(input))) return false
+
+    for (let index in input)
     {
-      input = input.toLowerCase()
-      for (let index in input)
+      let char = input[index]
+      if (char === " ")
       {
-        str = `${str}${toNumber(input[index])}`
+        str = `${str} `
       }
-    }
-    else
-    {
-      if (!isValidCipher(input)) return false
-
-      col = undefined
-
-      for (let index in input)
+      else if (encode)
       {
-        if (input[index] === " ") 
-        {
-          str = `${str} `
-        }
-        else if (!col) 
-        {
-          col = parseInt(input[index]) //gets the column index
-        }
-        else
-        {
-          const res = toLetter(col, parseInt(input[index]))
-          str = `${str}${res}`
-          col = undefined
-        }
+        str = `${str}${toNumber(char)}`
+      }
+      else if (!col)
+      {
+        col = parseInt(char) //gets the column index
+      }
+      else // when there's already a column index
+      {
+        const result = toLetter(col, parseInt(char))
+        str = `${str}${result}`
+        col = undefined //reset column
       }
     }
 
