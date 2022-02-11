@@ -6,8 +6,30 @@
 const substitutionModule = (function () {
   // you can add any code you want within this function scope
 
+  const base = 'a'
+  const letter_count = 26
+
+  function checkValidAlphabet(alphabet)
+  {
+    if (!alphabet) return false
+    if (alphabet.length != letter_count) return false
+    
+    const theory = {}
+    for (let char in alphabet)
+    {
+      if (theory[alphabet[char]])
+        return false
+      theory[alphabet[char]] = true
+    }
+
+    return true
+  }
+
   function substitution(input, alphabet, encode = true) {
     // your solution code here
+    if (!checkValidAlphabet(alphabet))
+      return false
+    return input
   }
 
   return {
