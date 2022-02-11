@@ -30,4 +30,21 @@ describe ("polybius() testing", () => {
             expect(actual).to.equal(expected)
         })
     })
+
+    describe("Polybius decoding:", () => {
+        it("should return false if the number of characters excluding spaces is odd", () => {
+            const actual = polybius("44324233521254134", false)
+            expect(actual).to.be.false
+        })
+        it("should decode letters, excluding spaces", () => {
+            const actual = polybius("3251131343 2543241341", false); //> "hello world"
+            const expected = "hello world"
+            expect(actual).to.equal(expected)
+        })
+        it("should contain both i and j when decoding an i/j", () => {
+            const actual = polybius("4432423352125413", false); //> "th(i/j)nkful
+            expect(actual).to.include('i')
+            expect(actual).to.include('j')
+        })
+    })
 })

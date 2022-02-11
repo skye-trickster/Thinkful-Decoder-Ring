@@ -14,26 +14,26 @@ const polybiusModule = (function () {
   const squareTable = 
   [
     [ 'a', 'b', 'c', 'd', 'e' ],
-    [ 'f', 'g', 'h', 'i', 'k' ],
+    [ 'f', 'g', 'h', pivot_to, 'k' ],
     [ 'l', 'm', 'n', 'o', 'p' ],
     [ 'q', 'r', 's', 't', 'u' ],
     [ 'v', 'w', 'x', 'y', 'z' ]
   ]
 
-  const isLetter = function(char)
+  function isLetter (char)
   {
     const letterIndex = char.charCodeAt() - base
     return letterIndex >= 0 && letterIndex < letter_count
   }
 
-  const toNumber = function(char)
+  function toNumber (char)
   {
     const findColumn = function(row)
     {
       return squareTable[row].findIndex((val) => val == char)
     }
 
-    const findRow = function(row)
+    const findCell = function(row)
     {
       const column = findColumn(row)
       if(column != -1)
@@ -45,25 +45,66 @@ const polybiusModule = (function () {
 
     if (!isLetter(char)) return char
 
-    if (char == pivot) char = pivot_to
+    if (char == pivot) char = pivot_to //change j to i
 
     for (let row = 0; row < squareTable.length; ++row)
     {
-      const res = findRow(row)
+      const res = findCell(row)
       if(res)
         return res
     }
   }
 
+  function isValidCipher(input)
+  {
+    input = input.replace(" ", "") //remove all spaces for check
+    return input.length % 2 == 0 //check if there's an odd number of inputs
+  }
+
+  function toLetter(column, row)
+  {
+    const result = squareTable[row - 1][column - 1]
+    if (result === pivot_to)
+      return `(${pivot}/${pivot_to})`
+    return result
+  }
+
   function polybius(input, encode = true) {
     // your solution code here
-    input = input.toLowerCase()
+
     str = ""
 
-    for (let index in input)
+    if (encode)
     {
-      if (encode)
+      input = input.toLowerCase()
+      for (let index in input)
+      {
         str = `${str}${toNumber(input[index])}`
+      }
+    }
+    else
+    {
+      if (!isValidCipher(input)) return false
+
+      col = undefined
+
+      for (let index in input)
+      {
+        if (input[index] === " ") 
+        {
+          str = `${str} `
+        }
+        else if (!col) 
+        {
+          col = parseInt(input[index]) //gets the column index
+        }
+        else
+        {
+          const res = toLetter(col, parseInt(input[index]))
+          str = `${str}${res}`
+          col = undefined
+        }
+      }
     }
 
     return str
