@@ -1,5 +1,4 @@
 // Write your tests here!
-// Write your tests here!
 const { expect } = require("chai")
 const { substitution } = require("../src/substitution.js")
 
@@ -42,6 +41,19 @@ describe ("substitution() function handling", () => {
             const actual = substitution("You are an excellent spy", "xoyqmcgrukswaflnthdjpzibev");
             const expected = 'elp xhm xf mbymwwmfj dne'
             expect(actual).to.equal(expected) 
+        })
+    })
+
+    describe ("substitution() decoding:", () => {
+        it("should be able to correctly decode a message", () => {
+            const actual = substitution("y&ii$r&", "$wae&zrdxtfcygvuhbijnokmpl", false) //=> 
+            const expected = "message"
+            expect(actual).to.equal(expected)
+        })
+        it("should be able to maintain spaces", () => {
+            const actual = substitution("elp xhm xf mbymwwmfj dne", "xoyqmcgrukswaflnthdjpzibev", false);
+            const expected = 'you are an excellent spy'
+            expect(actual).to.equal(expected)
         })
     })
 })

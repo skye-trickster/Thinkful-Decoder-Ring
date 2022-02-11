@@ -32,6 +32,18 @@ const substitutionModule = (function () {
     return alphabet[index]
   }
 
+  function decodeCharacter(char, alphaArray)
+  {
+    if (char === " ") return char
+    const index = alphaArray.findIndex((val) => char === val)
+    return String.fromCharCode(base + index)
+  }
+
+  function calibrateAlphabet(alphabet)
+  {
+    return [...alphabet]
+  }
+
   function substitution(input, alphabet, encode = true) {
     // your solution code here
     if (!checkValidAlphabet(alphabet))
@@ -42,6 +54,13 @@ const substitutionModule = (function () {
       input = input.toLowerCase()
       for(let index in input)
         str = `${str}${encodeCharacer(input[index], alphabet)}`
+    }
+    else
+    {
+      let alphaArray = calibrateAlphabet(alphabet)
+      for (let index in input)
+        str = `${str}${decodeCharacter(input[index], alphaArray)}`
+
     }
     return str
   }
